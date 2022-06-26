@@ -14,7 +14,7 @@ function App() {
 
   return (
     <AnimatePresence exitBeforeEnter>
-     <div className='w-screen bg-orange-50  flex flex-col'>
+     <div className='w-screen   flex flex-col'>
 
         <Header  /> 
           <main className='mt-16 md:mt-5'>

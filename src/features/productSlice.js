@@ -4,11 +4,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const productSlice = createSlice({ 
     name : 'products',
-    initialState : { products : []},
+    initialState : {
+         products : []
+        },
     reducers : {
-        setProducts : (state, action) =>{
-            state.products = action.payload
-        }
+        setProducts : (state, action) =>{ 
+            if (!state.products.find(({id}) => id === action.payload.id)) {
+                state.products.push(action.payload);
+              }
+                   
+            }
+            
+        
     }
 })
 

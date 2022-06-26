@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getStorage } from 'firebase/storage'
-
+import {setProducts} from './features/productSlice'
 import React from 'react';
 
 import { collection, doc, getDoc, getDocs, getFirestore, onSnapshot, orderBy, query, setDoc, where } from 'firebase/firestore'
@@ -23,7 +23,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const storage = getStorage(app)
 const db = getFirestore(app) 
-
 export {app, storage, db}
 
 export const saveItem = async (data) =>{
@@ -32,5 +31,24 @@ export const saveItem = async (data) =>{
 
 
 
+  
  
+ export const  fish = async (dispatch)=>{ 
+       const q = await query(collection(db, "foodItem"), where('category', '==' , 'fish' ))
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+    dispatch(setProducts({...doc.data(), id : doc.id}))
+      });
+  }
+ 
+  
+
+  export const getData = async (dispatch)=>{
+    const querySnapshot = await getDocs(collection(db, "foodItem"));
+    querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+    dispatch(setProducts({...doc.data(), id : doc.id}))
+      });
+  }
 

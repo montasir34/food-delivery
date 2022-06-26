@@ -9,10 +9,13 @@ import {app} from '../firebase'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, notLogin, userSelector } from '../features/userSlice'
 import { IoMdAdd , IoMdLogOut } from 'react-icons/io'
+import { show } from '../features/cartSlice'
+import { data } from '../features/cartSlice'
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 
 
 function Header() {
+  const all = useSelector(data)
   const dispatch = useDispatch()
 const user = useSelector(userSelector)
 const [isMenu, setIsMenu]  = useState(false)
@@ -38,15 +41,20 @@ function toglleMenu(){
   
   
 }
+
+
+function handleBasket(){
+dispatch(show())
+}
   return (
   
 <React.Fragment>
    <div className='sticky top-0 z-50 backdrop-blur-lg'>
-            <div className="container   p-6  flex justify-between items-center mx-auto ">
-      <div className='ml-14 md:ml-0 md:basis-1/2'>
-      <Link to={"/"} className="flex gap-x-2 outline-none order-1 md:order-first  cursor-pointer items-center md:basis-1/2 ">
+            <div className="container  p-2 md:p-6  flex justify-between items-center mx-auto ">
+      <div className='ml-7   md:ml-0 md:basis-1/2'>
+      <Link to={"/"} className="flex md:flex-row flex-col gap-x-2 outline-none order-1 md:order-first  cursor-pointer items-center md:basis-1/2 ">
          <img className='h-11 ' src={logo} alt="logo" />
-         <h1 className='text-3xl font-semibold text-gray-500 font-[fira sans]'>Sundus</h1>
+         <h1 className='text-3xl font-semibold text-gray-500 font-[Quantico]'>Sundus</h1>
       </Link>   
       </div>
 
@@ -54,15 +62,15 @@ function toglleMenu(){
         initial={{opacity : 0, x:200 }}
         animate={{opacity : 1, x: 0}}
         exit={{opacity : 0, x:200 }}
-      className=' hidden md:flex md:-mr-28 font-[fira sans] sm:gap-x-2 items-center md:gap-x-7  lg:text-lg basis-1/3 font-semibold'>
+      className=' hidden md:flex md:-mr-28 font-[Quantico] sm:gap-x-2 items-center md:gap-x-7  lg:text-lg basis-1/3 font-semibold'>
         <li className='cursor-pointer text-gray-600 hover:text-black '>Menu</li>
         <li className='cursor-pointer text-gray-600 hover:text-black '>About</li>
         <li className='cursor-pointer text-gray-600 hover:text-black '>Home</li>
         <li className='cursor-pointer text-gray-600 hover:text-black '>Service</li>
       </motion.ul>
       
-      <div className='order-first md:order-1 mr-4 cursor-pointer flex flex-col items-center justify-center -mt-4  '>
-        <span className='ring-white top-3 left-3  ring-2 h-5 w-5 flex items-center justify-center font-bold rounded-full relative bg-red-600 text-white'>4</span> 
+      <div onClick={handleBasket} className='order-first md:order-1 mr-4 cursor-pointer flex flex-col items-center justify-center -mt-4  '>
+       {all?.length > 0 && <span className='ring-white top-3 left-3  ring-2 h-5 w-5 flex items-center justify-center font-bold rounded-full relative bg-red-600 text-white'>{all.length}</span>}
         <IoIosBasket className='text-3xl cursor-pointer' />
       </div>
 

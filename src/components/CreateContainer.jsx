@@ -33,9 +33,10 @@ const cleartData = () =>{
 
  const uploadImg = (e) =>{
     const imgFile = e.target.files[0]
+  setLoading(true)
     const storageRef = ref(storage, `images/${Date.now()}-${imgFile.name}`)
     const uploadTask = uploadBytesResumable(storageRef, imgFile)
-    
+    setLoading(false)
     uploadTask.on('state_changed', (snapshot)=>{
       const uploadProgress =  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
     } ,

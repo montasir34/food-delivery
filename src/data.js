@@ -32,8 +32,8 @@ export const category = [
     },
     {
         id : 7  ,
-        name : 'Ic Cream',
-        urlName : 'ic Cream'
+        name : 'IcCream',
+        urlName : 'icCream'
     },
     {
         id : 8 ,
