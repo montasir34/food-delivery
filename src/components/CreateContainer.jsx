@@ -32,13 +32,14 @@ const cleartData = () =>{
 
 
  const uploadImg = (e) =>{
+ 
     const imgFile = e.target.files[0]
-  setLoading(true)
     const storageRef = ref(storage, `images/${Date.now()}-${imgFile.name}`)
-    const uploadTask = uploadBytesResumable(storageRef, imgFile)
-    setLoading(false)
+    setLoading(true)
+    const uploadTask = uploadBytesResumable(storageRef, imgFile) 
     uploadTask.on('state_changed', (snapshot)=>{
       const uploadProgress =  (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      
     } ,
     (error) => {
       setFields(true)
@@ -50,12 +51,14 @@ const cleartData = () =>{
       }, 5000)
     },
     ()=>{
+      
       getDownloadURL(uploadTask.snapshot.ref).then((downloadURL)=>{
-        setImage(downloadURL)
-        setLoading(false)
+        setImage(downloadURL) 
+        setLoading(false)  
         setFields(true)
         setMsg('image uploaded sucessesfully')
         setAlert('success')
+        
         setTimeout(()=>{
           setFields(false)
 
@@ -172,7 +175,7 @@ setTimeout(()=>{
           </select>
         </div>
           <div className='flex mt-7 flex-col justify-center items-center group border-2 border-dotted border-gray-300 w-full h-96 md:420  rounded-lg'>
-             {loading? <Loader /> : (
+             {loading ? <Loader /> : (
               <>
               {!image? (
               <>
@@ -214,25 +217,25 @@ setTimeout(()=>{
           </div>
           <div className='w-full flex md:flex-row md:items-center justify-center flex-col gap-x-1 gap-y-5 mt-5'>
           <div className='flex w-full gap-1'>
-            <MdFoodBank className='text-xl mt-1' />
+            <MdFoodBank className='text-4xl mt-1' />
             <input
-              placeholder='calories'
+              placeholder='describe'
               required
               value={colaries}
               onChange={e => setColaries(e.target.value)}
-              className='w-full h-full text-lg bg-transparent outline-none border-b-2 text-gray-600 placeholder:text-gray-400 font-semibold'
+              className='w-full h-11 text-lg bg-transparent outline-none border-b-2 text-gray-600 placeholder:text-gray-400 font-semibold'
              type="text"
               />
           </div>
            
               <div className='flex w-full gap-1'>
-             <MdAttachMoney className='text-xl mt-1' />
+             <MdAttachMoney className='text-4xl mt-1' />
               <input
               placeholder='Price'
               required
               value={price}
               onChange={e => setPrice(e.target.value)}
-              className='w-full h-full text-lg bg-transparent outline-none border-b-2 text-gray-600 placeholder:text-gray-400 font-semibold'
+              className='w-full h-11 text-lg bg-transparent outline-none border-b-2 text-gray-600 placeholder:text-gray-400 font-semibold'
              type="number"
               />
               </div>           
